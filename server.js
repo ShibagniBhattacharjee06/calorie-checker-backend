@@ -94,7 +94,7 @@ app.post('/analyze', async (req, res) => {
     res.json({ success: true, items: content.items });
   } catch (error) {
     console.error('❌ Groq Error:', error.response?.data || error.message);
-    res.status(500).json({ success: false, error: 'Analysis failed upload claer image' });
+    res.status(500).json({ success: false, error: 'Analysis failed upload clear image' });
   }
 });
 
