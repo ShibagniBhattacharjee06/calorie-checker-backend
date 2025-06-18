@@ -88,6 +88,15 @@ app.post('/analyze', async (req, res) => {
     res.status(500).json({ success: false, error: 'Analysis failed' });
   }
 });
+// ✅ Add this simple test route
+app.get('/', (req, res) => {
+  res.send('Backend is up and running!');
+});
+
+
+// ✅ Already present
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
