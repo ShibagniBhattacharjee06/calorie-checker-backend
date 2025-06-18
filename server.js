@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
-const formidable = require('formidable');
+const { formidable } = require('formidable');
 const cors = require('cors');
 const FormData = require('form-data');
 const fs = require('fs');
