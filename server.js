@@ -46,7 +46,7 @@ app.post('/upload', (req, res) => {
       );
 
       if (imgbbResponse.data.success) {
-        res.json({ success: true, url: imgbbResponse.data.data.url });
+        res.json({ success: true, url: imgbbResponse.data.data.image.url });
       } else {
         res.status(500).json({ success: false, error: 'Image upload failed' });
       }
