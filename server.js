@@ -4,7 +4,7 @@ const axios = require('axios');
 const formidable = require('formidable');
 const cors = require('cors');
 const FormData = require('form-data');
-const fs = require('fs'); // Required to read file stream
+const fs = require('fs');
 
 const app = express();
 app.use(cors({ origin: '*' }));
@@ -12,6 +12,11 @@ app.use(express.json());
 
 const IMGBB_API_KEY = process.env.IMGBB_API_KEY;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
+
+// ✅ HEALTH CHECK ROUTE
+app.get('/', (req, res) => {
+  res.send('Backend is up and running!');
+});
 
 // 🔧 Upload Endpoint Fix
 app.post('/upload', (req, res) => {
@@ -88,15 +93,7 @@ app.post('/analyze', async (req, res) => {
     res.status(500).json({ success: false, error: 'Analysis failed' });
   }
 });
-// ✅ Add this simple test route
-app.get('/', (req, res) => {
-  res.send('Backend is up and running!');
-});
 
-
-// ✅ Already present
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+// ✅ START SERVER
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
