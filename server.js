@@ -10,15 +10,19 @@ const app = express();
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
+// ✅ Debugging: Check if environment variables are loaded
 const IMGBB_API_KEY = process.env.IMGBB_API_KEY;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
+
+console.log('🔍 IMGBB_API_KEY:', IMGBB_API_KEY ? 'Loaded ✅' : 'Missing ❌');
+console.log('🔍 GROQ_API_KEY:', GROQ_API_KEY ? 'Loaded ✅' : 'Missing ❌');
 
 // ✅ HEALTH CHECK ROUTE
 app.get('/', (req, res) => {
   res.send('Backend is up and running!');
 });
 
-// 🔧 Upload Endpoint Fix
+// 🔧 Upload Endpoint
 app.post('/upload', (req, res) => {
   const form = formidable({ multiples: false });
 
@@ -47,7 +51,7 @@ app.post('/upload', (req, res) => {
         res.status(500).json({ success: false, error: 'Image upload failed' });
       }
     } catch (error) {
-      console.error('ImgBB Error:', error.response?.data || error.message);
+      console.error('❌ ImgBB Error:', error.response?.data || error.message);
       res.status(500).json({ success: false, error: 'Server error during image upload' });
     }
   });
@@ -89,11 +93,11 @@ app.post('/analyze', async (req, res) => {
     const content = JSON.parse(groqResponse.data.choices[0].message.content);
     res.json({ success: true, items: content.items });
   } catch (error) {
-    console.error('Groq Error:', error.response?.data || error.message);
+    console.error('❌ Groq Error:', error.response?.data || error.message);
     res.status(500).json({ success: false, error: 'Analysis failed' });
   }
 });
 
 // ✅ START SERVER
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
