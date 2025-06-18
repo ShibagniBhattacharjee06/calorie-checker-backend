@@ -23,12 +23,12 @@ app.post('/upload', (req, res) => {
   const form = formidable({ multiples: false });
 
   form.parse(req, async (err, fields, files) => {
-    if (err || !files.image) {
+    if (err || !files.image || !files.image[0]) {
       return res.status(400).json({ success: false, error: 'No image provided' });
     }
 
     try {
-      const imagePath = files.image.filepath;
+      const imagePath = files['image'][0].filepath;
       const imageStream = fs.createReadStream(imagePath);
       const formData = new FormData();
       formData.append('image', imageStream);
